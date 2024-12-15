@@ -50,7 +50,16 @@ install(){
 }
 
 if [ "$OS_TYPE" == "linux" ]; then
-    install "linux-$ARCH.deb"
+
+    if [ -x "$(command -v apt-get)" ]; then
+        install "linux-$ARCH.deb"
+    elif [ -x "$(command -v yum)" ]; then
+        install "linux-$ARCH.rpm"
+    else
+        echo "不支持的包管理器"
+        exit 1
+    fi
+
 else
     echo "不支持的操作系统类型: $OS_TYPE"
     exit 1

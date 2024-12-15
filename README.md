@@ -12,7 +12,7 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
 
 ### 卸载
 ```bash
-curl -L https://www.shellok.com/uninstall.sh -o ok.sh && chmod +x ok.sh && sudo bash ok.sh uninstall
+curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo bash ok.sh uninstall
 ```
 
 ### 功能说明
