@@ -40,3 +40,8 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
 * github登录（未开发配套功能）
 * 脚本列表
 * 脚本执行
+* 最小版本限制
+* 自动更新
+* 在详情页直接执行
+* 非交互模式
+* 交互模式
