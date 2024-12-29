@@ -3,7 +3,14 @@
 # 获取操作系统类型和架构
 OS_TYPE=$(uname | tr '[:upper:]' '[:lower:]')  # Darwin 或 Linux
 ARCH=$(uname -m)  # amd64, arm64, x86_64, i386 等
-URL="https://gh-proxy.com/github.com/zhangjunjie6b/shellok/releases/download/1.0.0/"
+
+# 脚本始终安装最新版本，用户可以自定义修改回退，这里暂时没写这个功能。
+
+URL="https://gh-proxy.com/github.com/zhangjunjie6b/shellok/releases/latest"
+HEADERS=$(curl -s -L -I "$URL")
+REDIRECTED_URL="https://gh-proxy.com/"$(echo "$HEADERS" | grep -i "location:" | awk '{print $2}' | tr -d '\r' | sed 's#^/##' |sed 's#^https://##'| sed 's|/tag/|/download/|')"/"
+
+
 # 转换架构名称（处理可能的差异）
 if [ "$ARCH" == "x86_64" ]; then
     ARCH="amd64"
@@ -19,24 +26,12 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# 卸载
-if [ "$1" == 'uninstall' ]; then
-    if [ -x "$(command -v apt-get)" ]; then
-        apt remove -y ok
-    elif [ -x "$(command -v yum)" ]; then
-        yum remove -y ok
-    else
-        echo "不支持的包管理器"
-        exit 1
-    fi
-    exit 1
-fi
 
 # 安装函数
 install(){
 
   DEB_FILE="$1"
-  wget "$URL$DEB_FILE" -O "$DEB_FILE"
+  wget "$REDIRECTED_URL$DEB_FILE" -O "$DEB_FILE"
   if [ -x "$(command -v apt-get)" ]; then
       apt install -y "./$DEB_FILE"
   elif [ -x "$(command -v yum)" ]; then
@@ -64,5 +59,21 @@ else
     echo "不支持的操作系统类型: $OS_TYPE"
     exit 1
 fi
+
+
+# 卸载
+if [ "$1" == 'uninstall' ]; then
+    if [ -x "$(command -v apt-get)" ]; then
+        apt remove -y ok
+    elif [ -x "$(command -v yum)" ]; then
+        yum remove -y ok
+    else
+        echo "不支持的包管理器"
+        exit 1
+    fi
+    echo "卸载完成！"
+    exit 1
+fi
+
 
 echo "安装完成！"
