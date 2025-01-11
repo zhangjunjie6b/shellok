@@ -31,11 +31,15 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
 直接执行`ok`命令，进入交互模式，添加参数`-c`，则不进入交互模式，直接执行脚本。
 
 ```bash
-
--c int
-        不进入交互模式，参为脚本ID
+  -c int
+        执行官方脚本，参数为脚本ID
   -l    查看脚本列表
+  -uc string
+        执行自定义脚本，参数为用户设置快捷键
+  -ul
+        查看自定义列表
   -v    查看版本号
+
 ```
 
 
@@ -51,6 +55,10 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
 
 
 ### 更新列表
+
+### 2024年1月12日
+> 1.0.3
+* 自定义脚本非交互模式
 
 #### 2024年12月31
 > 1.0.2
