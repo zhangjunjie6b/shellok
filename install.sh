@@ -4,11 +4,17 @@
 OS_TYPE=$(uname | tr '[:upper:]' '[:lower:]')  # Darwin 或 Linux
 ARCH=$(uname -m)  # amd64, arm64, x86_64, i386 等
 
-# 脚本始终安装最新版本，用户可以自定义修改回退，这里暂时没写这个功能。
+#是否使用代理
+read -p "是否使用代理？(y/n):" is_proxy
+if [ "$is_proxy" == "y" ]; then
+  URL="https://ghfast.top/github.com/zhangjunjie6b/shellok/releases/latest"
+  else
+  URL="https://github.com/zhangjunjie6b/shellok/releases/latest"
+fi
 
-URL="https://gh-proxy.com/github.com/zhangjunjie6b/shellok/releases/latest"
+# 脚本始终安装最新版本，用户可以自定义修改回退，这里暂时没写这个功能。
 HEADERS=$(curl -s -L -I "$URL")
-REDIRECTED_URL="https://gh-proxy.com/"$(echo "$HEADERS" | grep -i "location:" | awk '{print $2}' | tr -d '\r' | sed 's#^/##' |sed 's#^https://##'| sed 's|/tag/|/download/|')"/"
+REDIRECTED_URL=$PROXYHOST$(echo "$HEADERS" | grep -i "location:" | awk '{print $2}' | tr -d '\r' | sed 's#^/##' |sed 's#^https://##'| sed 's|/tag/|/download/|')"/"
 
 
 # 转换架构名称（处理可能的差异）
@@ -25,6 +31,7 @@ if [ "$(id -u)" -ne 0 ]; then
     echo "请使用 sudo 或以 root 用户运行此脚本"
     exit 1
 fi
+
 
 
 # 安装函数
