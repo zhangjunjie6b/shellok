@@ -34,6 +34,8 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
   -c int
         执行官方脚本，参数为脚本ID
   -l    查看脚本列表
+  -login string
+        快速登陆，网站 -> 自定义脚本 -> 查看登陆命令
   -uc string
         执行自定义脚本，参数为用户设置快捷键
   -ul
@@ -45,7 +47,6 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
 
 
 ### 计划功能
-～* 用户自定义脚本～
 * 账号密码登录
 * AI命令用法解答
 * 收藏脚本
@@ -55,6 +56,12 @@ curl -L https://www.shellok.com/install.sh -o ok.sh && chmod +x ok.sh && sudo ba
 
 
 ### 更新列表
+
+### 2024年2月3日
+> 1.0.4
+* 登录token过期删除本地token
+* 命令行快速登录
+
 
 ### 2024年1月12日
 > 1.0.3
